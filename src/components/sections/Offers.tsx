@@ -17,7 +17,7 @@ const Offers = () => {
       <div className="mt-8 flex gap-6 overflow-x-auto snap-x">
         {offers.map((o) => (
           <Card key={o.title} className="min-w-[320px] snap-start overflow-hidden bg-secondary/40 border-secondary/40 hover-scale">
-            <img src={o.img} alt={`${o.title} – Aurum`} loading="lazy" className="h-44 w-full object-cover" />
+            <img src={o.img} alt={`${o.title} – PHLOX`} loading="lazy" className="h-44 w-full object-cover" />
             <CardHeader>
               <CardTitle>{o.title}</CardTitle>
             </CardHeader>

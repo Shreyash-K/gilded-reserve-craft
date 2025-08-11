@@ -22,7 +22,7 @@ const allItems = {
     { name: "Dark Chocolate Fondant", desc: "Molten center, raspberry coulis, gold leaf", price: 16, img: dish3 },
   ],
   Drinks: [
-    { name: "Aurum Old Fashioned", desc: "Smoked, large clear ice, orange twist", price: 22, img: dish4 },
+    { name: "PHLOX Old Fashioned", desc: "Smoked, large clear ice, orange twist", price: 22, img: dish4 },
   ],
 } as const;
 
@@ -53,7 +53,7 @@ const Menu = () => {
               {allItems[c].map((item) => (
                 <Card key={item.name} className="group overflow-hidden border-secondary/40 bg-secondary/40 hover:bg-secondary/60 transition-colors">
                   <div className="overflow-hidden">
-                    <img src={item.img} alt={`${item.name} – Aurum`} loading="lazy" className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={item.img} alt={`${item.name} – PHLOX`} loading="lazy" className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <CardHeader>
                     <div className="flex items-center justify-between">

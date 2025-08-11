@@ -23,13 +23,13 @@ const Gallery = () => {
       <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((src, i) => (
           <button key={i} onClick={() => openImg(src)} className="group rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-ring">
-            <img src={src} alt={`Aurum gallery image ${i+1}`} loading="lazy" className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <img src={src} alt={`PHLOX gallery image ${i+1}`} loading="lazy" className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
           </button>
         ))}
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-4xl p-0 overflow-hidden">
-          {active && <img src={active} alt="Aurum gallery large" className="w-full h-full object-contain" />}
+          {active && <img src={active} alt="PHLOX gallery large" className="w-full h-full object-contain" />}
         </DialogContent>
       </Dialog>
     </section>

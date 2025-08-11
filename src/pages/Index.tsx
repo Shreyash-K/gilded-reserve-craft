@@ -13,7 +13,7 @@ const Index = () => {
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    name: 'Aurum',
+    name: 'PHLOX',
     servesCuisine: ['Modern', 'Contemporary', 'Fine Dining'],
     priceRange: '$$$',
     telephone: '+1-555-123-4567',
