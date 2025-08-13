@@ -6,7 +6,7 @@ const SiteFooter = () => {
     <footer className="border-t border-secondary/40 mt-20">
       <div className="container py-10 grid md:grid-cols-4 gap-8">
         <div>
-          <h3 className="font-playfair text-xl">PHLOX</h3>
+          <h3 className="font-playfair text-xl">Aurum</h3>
           <p className="text-muted-foreground mt-2">Modern luxury dining in the heart of the city.</p>
         </div>
         <nav className="grid gap-2">
@@ -31,7 +31,7 @@ const SiteFooter = () => {
         </div>
       </div>
       <div className="container pb-8 text-xs text-muted-foreground">
-        © {new Date().getFullYear()} PHLOX. All rights reserved.
+        © {new Date().getFullYear()} Aurum. All rights reserved.
       </div>
     </footer>
   );

@@ -78,7 +78,7 @@ const Reservation = () => {
         </div>
         <div className="rounded-lg overflow-hidden">
           <iframe
-            title="PHLOX Location Map"
+            title="Aurum Location Map"
             className="w-full h-[420px] rounded-lg"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

@@ -2,7 +2,7 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carouse
 import { Card, CardContent } from "@/components/ui/card";
 
 const testimonials = [
-  { name: "Isabella R.", quote: "PHLOX is a revelation — every course felt like a story.", rating: 5 },
+  { name: "Isabella R.", quote: "Aurum is a revelation — every course felt like a story.", rating: 5 },
   { name: "Daniel K.", quote: "Impeccable service and a cinematic ambience.", rating: 5 },
   { name: "Maya T.", quote: "Chef's tasting menu was the highlight of our trip.", rating: 5 },
 ];

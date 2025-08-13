@@ -6,7 +6,7 @@ const Contact = () => {
         <div className="space-y-2">
           <p className="text-muted-foreground">123 Charcoal Ave, Suite 7, Metropolis</p>
           <p className="text-muted-foreground">+1 (555) 123-4567</p>
-          <p className="text-muted-foreground">reservations@phlox.dine</p>
+          <p className="text-muted-foreground">reservations@aurum.dine</p>
         </div>
         <div>
           <h3 className="font-medium mb-2">Opening Hours</h3>
@@ -18,7 +18,7 @@ const Contact = () => {
         </div>
         <div className="rounded-lg overflow-hidden">
           <iframe
-            title="PHLOX Location Map"
+            title="Aurum Location Map"
             className="w-full h-48 rounded-lg"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

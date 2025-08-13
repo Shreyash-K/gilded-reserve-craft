@@ -16,7 +16,7 @@ const Social = () => {
         </div>
       </div>
       <div className="mt-8 grid grid-cols-3 gap-4">
-        <img src={ambience2} alt="PHLOX on Instagram" className="h-40 w-full object-cover rounded-md" />
+        <img src={ambience2} alt="Aurum on Instagram" className="h-40 w-full object-cover rounded-md" />
         <img src={dish4} alt="Signature cocktail on Instagram" className="h-40 w-full object-cover rounded-md" />
         <img src={dish3} alt="Dessert on Instagram" className="h-40 w-full object-cover rounded-md" />
       </div>
