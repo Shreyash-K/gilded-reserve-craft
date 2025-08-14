@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import ambience1 from "@/assets/ambience-1.jpg";
-import ambience2 from "@/assets/ambience-2.jpg";
-import dish1 from "@/assets/dish-1.jpg";
-import dish2 from "@/assets/dish-2.jpg";
-import dish3 from "@/assets/dish-3.jpg";
-
-const images = [ambience1, ambience2, dish1, dish2, dish3];
+const images = [
+  "/lovable-uploads/0555ec3e-f6d6-46de-abee-ef21664433ab.png",
+  "/lovable-uploads/4012e2ad-a809-44fe-b4a1-5f0490404d61.png", 
+  "/lovable-uploads/52aebc63-3732-4411-a02e-1c7c0efffbfb.png",
+  "/lovable-uploads/390d96c3-60a6-478f-8d1e-94543da4c89f.png",
+  "/lovable-uploads/1aebeffa-619e-43dd-a1fd-1b6c76fd9cc8.png",
+  "/lovable-uploads/49854a41-f58f-44a2-9a96-95681b79cdc8.png"
+];
 
 const Gallery = () => {
   const [open, setOpen] = React.useState(false);
