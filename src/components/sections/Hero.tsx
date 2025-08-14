@@ -41,6 +41,7 @@ const Hero = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/30 to-transparent" />
+                <div className="absolute inset-0 bg-[rgba(26,47,74,0.65)]" />
               </div>
             </CarouselItem>
           ))}
@@ -60,23 +61,31 @@ const Hero = () => {
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="pointer-events-auto container mx-auto px-6 text-center animate-enter relative z-10">
-          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl tracking-tight leading-tight">
+          <h1 className="font-playfair text-white text-[clamp(2rem,4vw,3rem)] tracking-tight leading-tight bg-gradient-to-r from-[#FFD700] to-[#D4AF37] bg-clip-text text-transparent" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
             PHLOX – Restro Cafe Experience
           </h1>
-          <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-6 text-lg text-[rgba(255,255,255,0.85)] leading-relaxed max-w-2xl mx-auto">
             Where culinary artistry meets comfort. Discover our signature dishes, premium beverages, and warm hospitality.
           </p>
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <Button size="xl" variant="gold" className="hover-scale shadow-2xl backdrop-blur-md bg-gradient-to-r from-primary to-primary-glow border-2 border-primary/50" onClick={() => {
-              const el = document.getElementById('reserve');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}>
+          <div className="mt-12 flex items-center justify-center gap-6">
+            <Button 
+              size="xl" 
+              className="rounded-full px-8 py-3 bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-200" 
+              onClick={() => {
+                const el = document.getElementById('reserve');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Reserve Now
             </Button>
-            <Button size="xl" variant="hero" className="hover-scale shadow-xl backdrop-blur-md bg-background/80 border-2 border-primary/30" onClick={() => {
-              const el = document.getElementById('menu');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}>
+            <Button 
+              size="xl" 
+              className="rounded-full px-8 py-3 bg-[#D4AF37] text-[#1A2F4A] hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-200" 
+              onClick={() => {
+                const el = document.getElementById('menu');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               View Menu
             </Button>
           </div>
