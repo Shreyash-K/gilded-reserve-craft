@@ -14,9 +14,9 @@ import heroInterior from "@/assets/hero-interior.jpg";
 import heroChef from "@/assets/hero-chef.jpg";
 
 const slides = [
-  { src: heroDish, alt: "Signature wagyu with truffle – Aurum Restaurant" },
-  { src: heroInterior, alt: "Cinematic interior ambience – Aurum Restaurant" },
-  { src: heroChef, alt: "Chef portrait – Aurum Restaurant" },
+  { src: heroDish, alt: "Signature cuisine at PHLOX Restro Cafe" },
+  { src: heroInterior, alt: "PHLOX Restro Cafe interior ambience" },
+  { src: heroChef, alt: "Culinary excellence at PHLOX" },
 ];
 
 const Hero = () => {
@@ -49,13 +49,22 @@ const Hero = () => {
         <CarouselNext className="bg-secondary/70 backdrop-blur-sm border-0 hover:bg-secondary" />
       </Carousel>
 
+      {/* Logo Background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <img 
+          src="/lovable-uploads/4420ee9c-1542-4ae8-923d-3adb6fa0f587.png" 
+          alt="PHLOX Logo" 
+          className="w-80 h-80 opacity-10 object-contain"
+        />
+      </div>
+
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="pointer-events-auto container mx-auto px-6 text-center animate-enter">
+        <div className="pointer-events-auto container mx-auto px-6 text-center animate-enter relative z-10">
           <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl tracking-tight leading-tight">
-            Aurum – The Art of Modern Luxury Dining
+            PHLOX – Restro Cafe Experience
           </h1>
           <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            A cinematic culinary experience with chef-driven menus, crafted cocktails, and an unforgettable ambience.
+            Where culinary artistry meets comfort. Discover our signature dishes, premium beverages, and warm hospitality.
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
             <Button size="xl" variant="gold" className="hover-scale" onClick={() => {
