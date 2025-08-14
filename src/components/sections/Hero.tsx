@@ -54,7 +54,7 @@ const Hero = () => {
         <img 
           src="/lovable-uploads/4420ee9c-1542-4ae8-923d-3adb6fa0f587.png" 
           alt="PHLOX Logo" 
-          className="w-full h-full max-w-md max-h-md sm:max-w-lg sm:max-h-lg opacity-10 object-contain"
+          className="w-full h-full opacity-8 object-cover"
         />
       </div>
 
@@ -67,13 +67,13 @@ const Hero = () => {
             Where culinary artistry meets comfort. Discover our signature dishes, premium beverages, and warm hospitality.
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
-            <Button size="xl" variant="gold" className="hover-scale shadow-lg backdrop-blur-sm" onClick={() => {
+            <Button size="xl" variant="gold" className="hover-scale shadow-2xl backdrop-blur-md bg-gradient-to-r from-primary to-primary-glow border-2 border-primary/50" onClick={() => {
               const el = document.getElementById('reserve');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}>
               Reserve Now
             </Button>
-            <Button size="xl" variant="hero" className="hover-scale shadow-lg backdrop-blur-sm" onClick={() => {
+            <Button size="xl" variant="hero" className="hover-scale shadow-xl backdrop-blur-md bg-background/80 border-2 border-primary/30" onClick={() => {
               const el = document.getElementById('menu');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}>
