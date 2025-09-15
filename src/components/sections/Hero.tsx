@@ -12,6 +12,7 @@ import {
 import heroDish from "@/assets/hero-dish.jpg";
 import heroInterior from "@/assets/hero-interior.jpg";
 import heroChef from "@/assets/hero-chef.jpg";
+import phloxLogo from "@/assets/phlox-logo.png";
 
 const slides = [
   { src: heroDish, alt: "Signature cuisine at PHLOX Restro Cafe" },
@@ -35,13 +36,12 @@ const Hero = () => {
           {slides.map((s, i) => (
             <CarouselItem key={i} className="h-full">
               <div className="relative h-full">
-                <img
-                  src={s.src}
-                  alt={s.alt}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/30 to-transparent" />
-                <div className="absolute inset-0 bg-[rgba(26,47,74,0.65)]" />
+                 <img
+                   src={s.src}
+                   alt={s.alt}
+                   className="absolute inset-0 w-full h-full object-cover"
+                 />
+                 <div className="absolute inset-0 bg-background/80" />
               </div>
             </CarouselItem>
           ))}
@@ -50,17 +50,16 @@ const Hero = () => {
         <CarouselNext className="bg-secondary/70 backdrop-blur-sm border-0 hover:bg-secondary" />
       </Carousel>
 
-      {/* Logo Background */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <img 
-          src="/lovable-uploads/4420ee9c-1542-4ae8-923d-3adb6fa0f587.png" 
-          alt="PHLOX Logo" 
-          className="w-full h-full opacity-8 object-cover"
-        />
-      </div>
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="pointer-events-auto container mx-auto px-6 text-center animate-enter relative z-10">
+          <div className="mb-6 flex justify-center">
+            <img 
+              src={phloxLogo} 
+              alt="PHLOX Logo" 
+              className="w-24 h-24 md:w-32 md:h-32"
+            />
+          </div>
           <h1 className="font-playfair text-white text-[clamp(2rem,4vw,3rem)] tracking-tight leading-tight bg-gradient-to-r from-[#FFD700] to-[#D4AF37] bg-clip-text text-transparent" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
             PHLOX – Restro Cafe Experience
           </h1>
