@@ -5,8 +5,6 @@ import Offers from "@/components/sections/Offers";
 import Reservation from "@/components/sections/Reservation";
 import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
-import Events from "@/components/sections/Events";
-import Social from "@/components/sections/Social";
 import Contact from "@/components/sections/Contact";
 import SiteFooter from "@/components/sections/SiteFooter";
 
@@ -48,8 +46,6 @@ const Index = () => {
         <Reservation />
         <Gallery />
         <Testimonials />
-        <Events />
-        <Social />
         <Contact />
       </main>
       <SiteFooter />

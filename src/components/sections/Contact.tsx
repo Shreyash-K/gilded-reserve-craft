@@ -33,7 +33,7 @@ const Contact = () => {
           <h3 className="font-playfair text-2xl mb-4 text-gold">Visit Our Instagram</h3>
           <p className="text-muted-foreground mb-6">Share your PHLOX moments with us and stay updated with our latest offerings!</p>
           <a 
-            href="https://www.instagram.com/phlox.restrocafe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+            href="https://www.instagram.com/phlox.restrocafe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full hover:scale-105 transition-all duration-200 font-medium"
