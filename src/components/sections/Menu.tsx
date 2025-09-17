@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Coffee, Utensils, Cake, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Coffee, Utensils, Cake, Sparkles, ChefHat, Eye, ArrowDown } from "lucide-react";
 
 // Menu Types
 type MenuItem = { name: string; price: number };
@@ -538,7 +539,187 @@ const categoryIcons = {
 
 const Menu = () => {
   const [category, setCategory] = useState<CategoryKey>("Beverages");
+  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const categories = useMemo(() => Object.keys(allItems) as CategoryKey[], []);
+
+  // Featured menu items for preview
+  const featuredItems = {
+    Beverages: [
+      { name: "CLASSIC LEMONADE", price: 169 },
+      { name: "VIRGIN MOJITO", price: 189 },
+      { name: "ICED AMERICANO", price: 179 },
+      { name: "CAPPUCCINO", price: 149 },
+    ],
+    Food: [
+      { name: "MARGHERITA PIZZA", price: 519 },
+      { name: "PANEER BUTTER MASALA", price: 449 },
+      { name: "VEG. CLUB SANDWICH", price: 249 },
+      { name: "ALFREDO PASTA", price: 309 },
+    ],
+    "Desserts & Others": [
+      { name: "HOT CHOCOLATE BROWNIE", price: 239 },
+      { name: "NUTELLA CHEESECAKE", price: 279 },
+      { name: "VANILLA ICE CREAM", price: 89 },
+      { name: "GULAB JAMUN", price: 169 },
+    ]
+  };
+
+  const MenuPreview = () => (
+    <div className="text-center">
+      {/* Menu Preview Cards */}
+      <div className="grid gap-6 md:grid-cols-3 mb-12">
+        {categories.map((cat) => {
+          const Icon = categoryIcons[cat];
+          return (
+            <Card key={cat} className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/60 to-card/40 backdrop-blur-sm hover:from-card/80 hover:to-card/60 transition-all duration-500 hover:scale-[1.02] hover:shadow-xl hover:shadow-gold/10">
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <CardHeader className="relative pb-3">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <Icon className="w-6 h-6 text-gold" />
+                  <CardTitle className="text-xl font-playfair bg-gradient-to-r from-foreground to-gold bg-clip-text text-transparent">
+                    {cat}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="relative">
+                <div className="space-y-2">
+                  {featuredItems[cat].map((item) => (
+                    <div key={item.name} className="flex items-center justify-between gap-3 py-1">
+                      <span className="text-sm text-foreground/80 text-left flex-1">
+                        {item.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-shrink-0 border-b border-dashed border-border/40 w-8" />
+                        <span className="font-playfair text-base font-semibold text-gold whitespace-nowrap">
+                          ₹{item.price}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="pt-2">
+                    <p className="text-xs text-muted-foreground">
+                      + {allItems[cat].reduce((acc, section) => acc + section.items.length, 0) - 4} more items
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Reveal Menu Button */}
+      <div className="relative">
+        <Button
+          onClick={() => setIsMenuExpanded(true)}
+          size="lg"
+          className="group relative overflow-hidden bg-gradient-to-r from-gold to-gold/80 hover:from-gold/90 hover:to-gold text-background font-semibold px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-gold/20"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+          <div className="flex items-center gap-3">
+            <ChefHat className="w-5 h-5" />
+            <span>View Full Menu</span>
+            <Eye className="w-5 h-5" />
+          </div>
+        </Button>
+        
+        <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground">
+          <ArrowDown className="w-4 h-4 animate-bounce" />
+          <span className="text-sm">Discover our complete selection</span>
+          <ArrowDown className="w-4 h-4 animate-bounce" />
+        </div>
+      </div>
+    </div>
+  );
+
+  const FullMenu = () => (
+    <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryKey)}>
+      {/* Category Tabs */}
+      <div className="flex justify-center mb-12">
+        <TabsList className="grid grid-cols-3 bg-secondary/30 backdrop-blur-sm border border-border/40 p-1 rounded-2xl">
+          {categories.map((c) => {
+            const Icon = categoryIcons[c];
+            return (
+              <TabsTrigger 
+                key={c} 
+                value={c}
+                className="flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-lg transition-all duration-300"
+              >
+                <Icon className="w-4 h-4" />
+                {c}
+              </TabsTrigger>
+            );
+          })}
+        </TabsList>
+      </div>
+
+      {/* Menu Content */}
+      {categories.map((c) => (
+        <TabsContent key={c} value={c} className="animate-fade-in">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {allItems[c].map((section, index) => (
+              <Card
+                key={section.title}
+                className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm hover:from-card/70 hover:to-card/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/10"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                {/* Card background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <CardHeader className="relative pb-4">
+                  <CardTitle className="flex items-center gap-3 text-xl font-playfair">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                      <div className="w-1 h-1 rounded-full bg-gold/60" />
+                    </div>
+                    <span className="bg-gradient-to-r from-foreground to-gold bg-clip-text text-transparent">
+                      {section.title}
+                    </span>
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="relative">
+                  <div className="space-y-3">
+                    {section.items.map((item) => (
+                      <div 
+                        key={item.name} 
+                        className="flex items-center justify-between gap-4 py-2 group/item hover:bg-secondary/20 rounded-lg px-3 -mx-3 transition-colors duration-200"
+                      >
+                        <span className="text-sm font-medium text-foreground/90 group-hover/item:text-foreground transition-colors text-left flex-1">
+                          {item.name}
+                        </span>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <div className="border-b border-dashed border-border/40 w-6" />
+                          <span className="font-playfair text-lg font-semibold text-gold whitespace-nowrap">
+                            ₹{item.price}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      ))}
+      
+      {/* Collapse Menu Button */}
+      <div className="text-center mt-12">
+        <Button
+          onClick={() => setIsMenuExpanded(false)}
+          variant="outline"
+          className="border-gold/30 text-gold hover:bg-gold/10 hover:border-gold/50"
+        >
+          Collapse Menu
+        </Button>
+      </div>
+    </Tabs>
+  );
 
   return (
     <section id="menu" className="relative py-24 overflow-hidden">
@@ -547,93 +728,22 @@ const Menu = () => {
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-gold/5 to-transparent blur-3xl" />
       
       <div className="container relative">
-        <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryKey)}>
-          {/* Header Section */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Sparkles className="w-6 h-6 text-gold animate-pulse" />
-              <h2 className="font-playfair text-5xl sm:text-6xl bg-gradient-to-r from-foreground via-gold to-foreground bg-clip-text text-transparent">
-                Our Menu
-              </h2>
-              <Sparkles className="w-6 h-6 text-gold animate-pulse" />
-            </div>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Discover our carefully curated selection of beverages, authentic flavors, and delightful desserts
-            </p>
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="w-6 h-6 text-gold animate-pulse" />
+            <h2 className="font-playfair text-5xl sm:text-6xl bg-gradient-to-r from-foreground via-gold to-foreground bg-clip-text text-transparent">
+              Our Menu
+            </h2>
+            <Sparkles className="w-6 h-6 text-gold animate-pulse" />
           </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Discover our carefully curated selection of beverages, authentic flavors, and delightful desserts
+          </p>
+        </div>
 
-          {/* Category Tabs */}
-          <div className="flex justify-center mb-16">
-            <TabsList className="grid grid-cols-3 bg-secondary/30 backdrop-blur-sm border border-border/40 p-1 rounded-2xl">
-              {categories.map((c) => {
-                const Icon = categoryIcons[c];
-                return (
-                  <TabsTrigger 
-                    key={c} 
-                    value={c}
-                    className="flex items-center gap-2 px-8 py-4 text-sm font-medium rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-lg transition-all duration-300"
-                  >
-                    <Icon className="w-4 h-4" />
-                    {c}
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-          </div>
-
-          {/* Menu Content */}
-          {categories.map((c) => (
-            <TabsContent key={c} value={c} className="animate-fade-in">
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {allItems[c].map((section, index) => (
-                  <Card
-                    key={section.title}
-                    className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm hover:from-card/70 hover:to-card/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/10"
-                    style={{
-                      animationDelay: `${index * 100}ms`,
-                    }}
-                  >
-                    {/* Card background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <CardHeader className="relative pb-4">
-                      <CardTitle className="flex items-center gap-3 text-xl font-playfair">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-                          <div className="w-1 h-1 rounded-full bg-gold/60" />
-                        </div>
-                        <span className="bg-gradient-to-r from-foreground to-gold bg-clip-text text-transparent">
-                          {section.title}
-                        </span>
-                      </CardTitle>
-                    </CardHeader>
-                    
-                    <CardContent className="relative">
-                      <div className="space-y-3">
-                        {section.items.map((item) => (
-                          <div 
-                            key={item.name} 
-                            className="flex items-baseline justify-between gap-4 py-2 group/item hover:bg-secondary/20 rounded-lg px-2 -mx-2 transition-colors duration-200"
-                          >
-                            <span className="text-sm font-medium text-foreground/90 group-hover/item:text-foreground transition-colors">
-                              {item.name}
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <div className="flex-1 border-b border-dashed border-border/40 min-w-[20px]" />
-                              <span className="font-playfair text-lg font-semibold text-gold whitespace-nowrap">
-                                ₹{item.price}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+        {/* Conditional Menu Content */}
+        {!isMenuExpanded ? <MenuPreview /> : <FullMenu />}
       </div>
     </section>
   );
