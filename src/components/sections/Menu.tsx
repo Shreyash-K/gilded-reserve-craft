@@ -1,512 +1,539 @@
 import { useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Coffee, Utensils, Cake, Sparkles } from "lucide-react";
 
 // Menu Types
 type MenuItem = { name: string; price: number };
 type Section = { title: string; items: MenuItem[] };
-type CategoryKey = "Beverages" | "Food" | "Bakery & Desserts" | "Sides & Add-ons";
+type CategoryKey = "Beverages" | "Food" | "Desserts & Others";
 
-// Complete menu data without images, grouped for clear navigation
+// Complete menu data with new items
 const allItems: Record<CategoryKey, Section[]> = {
   Beverages: [
     {
-      title: "Hot Coffee (with milk)",
+      title: "Mocktails",
       items: [
-        { name: "Cappuccino", price: 160 },
-        { name: "Cafe Latte", price: 160 },
-        { name: "Cafe Mocha", price: 170 },
-        { name: "Caramel Cappuccino", price: 170 },
-        { name: "Caramel Latte", price: 170 },
-        { name: "Hazelnut Cappuccino", price: 170 },
-        { name: "Hazelnut Latte", price: 170 },
-        { name: "Vanilla Cappuccino", price: 170 },
-        { name: "Vanilla Latte", price: 170 },
-        { name: "Irish Cappuccino", price: 180 },
-        { name: "Irish Latte", price: 190 },
-        { name: "Nutella Cappuccino", price: 190 },
-        { name: "Lotus Biscoff Cappuccino", price: 210 },
+        { name: "CLASSIC LEMONADE", price: 169 },
+        { name: "VIRGIN MOJITO", price: 189 },
+        { name: "BLACK CURRANT MOJITO", price: 189 },
+        { name: "STRAWBERRY MOJITO", price: 189 },
+        { name: "WATERMELON LITCHI PUNCH", price: 199 },
+        { name: "REDBULL MOJITO", price: 239 },
+        { name: "PINA COLADA", price: 199 },
+        { name: "MINT MOJITO", price: 169 },
+        { name: "CRANBERRY MOJITO", price: 169 },
+        { name: "BITTER SALT MOJITO", price: 169 },
+        { name: "FREEZY ENERGY MOJITO", price: 189 },
       ],
     },
     {
-      title: "Hot Coffee (without milk)",
+      title: "Brain Freezer",
       items: [
-        { name: "Espresso (Coffee Shots)", price: 90 },
-        { name: "Americano (Black Coffee)", price: 110 },
-        { name: "Macchiato (Foam on Shot)", price: 130 },
-        { name: "Signature Affogato", price: 140 },
-        { name: "Irish Coffee (No Milk)", price: 140 },
-      ],
-    },
-    {
-      title: "Hot Chocolate (CHO.CO.lit)",
-      items: [
-        { name: "Hot Chocolate", price: 170 },
-        { name: "Hot Nutella", price: 190 },
-        { name: "Hot Rocher", price: 200 },
-      ],
-    },
-    {
-      title: "Cold Coffee (frappe)",
-      items: [
-        { name: "Creamy frappe", price: 200 },
-        { name: "Caramel frappe", price: 210 },
-        { name: "Choco Passion frappe", price: 200 },
-        { name: "Hazelnut frappe", price: 210 },
-        { name: "Irish frappe", price: 220 },
-        { name: "Double Choco Chip frappe", price: 220 },
-        { name: "Nutella frappe", price: 230 },
-        { name: "Oreo frappe", price: 230 },
-        { name: "Lotus Biscoff frappe", price: 250 },
-        { name: "Brownie frappe", price: 250 },
-        { name: "Signature Frappe (100% Arabica)", price: 220 },
-      ],
-    },
-    {
-      title: "Icy Coffee",
-      items: [
-        { name: "Iced Coffee", price: 150 },
-        { name: "Iced Latte", price: 160 },
-        { name: "Iced Americano", price: 150 },
-        { name: "Iced Vanilla", price: 180 },
-        { name: "Iced Mocha", price: 180 },
-        { name: "Iced Caramel", price: 180 },
-        { name: "Espresso Tonic (Ginger Ale)", price: 190 },
-        { name: "Cold Brew (Citrus Apple/Orange)", price: 190 },
-        { name: "Vietnamese Iced Brew", price: 200 },
+        { name: "ICE BLUE", price: 149 },
+        { name: "LITCHI SLUSH", price: 159 },
+        { name: "GALAXY MOCKTAIL", price: 179 },
       ],
     },
     {
       title: "Iced Tea",
       items: [
-        { name: "Lemon Iced Tea", price: 160 },
-        { name: "Peach Iced Tea", price: 170 },
-        { name: "Strawberry Iced Tea", price: 170 },
-        { name: "Cranberry Iced Tea", price: 180 },
-        { name: "Watermelon Iced Tea", price: 180 },
+        { name: "LEMON ICED TEA", price: 189 },
+        { name: "PEACH ICED TEA", price: 189 },
+        { name: "STRAWBERRY ICED TEA", price: 199 },
+        { name: "CRANBERRY ICED TEA", price: 199 },
+        { name: "WATERMELON ICED TEA", price: 199 },
       ],
     },
     {
-      title: "Brain Freezers",
+      title: "Iced Coffee",
       items: [
-        { name: "Ice Blue", price: 120 },
-        { name: "Litchi Slush", price: 120 },
-        { name: "Galaxy Mocktail", price: 140 },
+        { name: "ICED AMERICANO", price: 179 },
+        { name: "ICED LATTE", price: 189 },
+        { name: "ICED COFFEE", price: 189 },
+        { name: "ICED VANILLA", price: 199 },
+        { name: "ICED MOCHA", price: 209 },
+        { name: "ICED CARAMEL", price: 219 },
+        { name: "ESPRESSO TONIC (GINGER ALE)", price: 239 },
+        { name: "COLD BREW (CITRUS APPLE/ORANGE)", price: 229 },
+        { name: "VIETNAMESE ICED BREW", price: 249 },
+      ],
+    },
+    {
+      title: "Hot Coffee",
+      items: [
+        { name: "CAPPUCCINO", price: 149 },
+        { name: "CAFE LATTE", price: 169 },
+        { name: "CAFE MOCHA", price: 189 },
+        { name: "CARAMEL CAPPUCCINO", price: 179 },
+        { name: "CARAMEL LATTE", price: 179 },
+        { name: "HAZELNUT CAPPUCCINO", price: 179 },
+        { name: "HAZELNUT LATTE", price: 179 },
+        { name: "VANILLA CAPPUCCINO", price: 179 },
+        { name: "VANILLA LATTE", price: 179 },
+        { name: "IRISH CAPPUCCINO", price: 189 },
+        { name: "IRISH LATTE", price: 199 },
+        { name: "NUTELLA CAPPUCCINO", price: 199 },
+        { name: "LOTUS BISCOFF CAPPUCCINO", price: 219 },
+      ],
+    },
+    {
+      title: "Hot Coffee (without milk)",
+      items: [
+        { name: "ESPRESSO (COFFEE SHOTS)", price: 119 },
+        { name: "AMERICANO (BLACK COFFEE)", price: 119 },
+        { name: "MACCHIATO (FOAM ON SHOT)", price: 149 },
+        { name: "SIGNATURE AFFOGATO", price: 189 },
+        { name: "IRISH COFFEE (NO MILK)", price: 179 },
+      ],
+    },
+    {
+      title: "Hot Chocolate",
+      items: [
+        { name: "HOT CHOCOLATE", price: 179 },
+        { name: "HOT NUTELLA", price: 189 },
+        { name: "HOT ROCHER", price: 219 },
+      ],
+    },
+    {
+      title: "Chai",
+      items: [
+        { name: "INDIAN MASALA CHAI", price: 139 },
+      ],
+    },
+    {
+      title: "Cold Coffee (frappe)",
+      items: [
+        { name: "CLASSIC COLD COFFEE", price: 179 },
+        { name: "CREAMY FRAPPE", price: 199 },
+        { name: "CARAMEL FRAPPE", price: 219 },
+        { name: "CHOCO PASSION FRAPPE", price: 219 },
+        { name: "HAZELNUT FRAPPE", price: 219 },
+        { name: "IRISH FRAPPE", price: 219 },
+        { name: "DOUBLE CHOCO CHIP FRAPPE", price: 229 },
+        { name: "NUTELLA FRAPPE", price: 239 },
+        { name: "OREO FRAPPE", price: 239 },
+        { name: "LOTUS BISCOFF FRAPPE", price: 249 },
+        { name: "BROWNIE FRAPPE", price: 249 },
+        { name: "SIGNATURE FRAPPE (100% ARABICA)", price: 249 },
       ],
     },
     {
       title: "Shakes",
       items: [
-        { name: "Chocolate Shake", price: 200 },
-        { name: "Blackcurrant Shake", price: 210 },
-        { name: "Strawberry Shake", price: 210 },
-        { name: "Butterscotch Shake", price: 220 },
-        { name: "Oreo Shake", price: 230 },
-        { name: "KitKat Shake", price: 230 },
-        { name: "Nutella Shake", price: 240 },
-        { name: "Belgium (Crunchy) Shake", price: 240 },
-        { name: "Red Velvet Shake", price: 240 },
-        { name: "Brownie Shake", price: 240 },
-        { name: "Blueberry Shake", price: 250 },
-        { name: "Lotus Biscoff Shake", price: 250 },
-        { name: "Rocher Shake", price: 250 },
-      ],
-    },
-    {
-      title: "Mocktails",
-      items: [
-        { name: "Classic Lemonade", price: 150 },
-        { name: "Virgin Mojito", price: 160 },
-        { name: "Black Currant Mojito", price: 160 },
-        { name: "Strawberry Mojito", price: 160 },
-        { name: "Watermelon Litchi Punch", price: 170 },
-        { name: "Redbull Mojito", price: 240 },
-        { name: "Pina Colada", price: 160 },
-        { name: "Mint Mojito", price: 150 },
-        { name: "Cranberry Mojito", price: 160 },
-        { name: "Bitter Salt Mojito", price: 170 },
-        { name: "Freezy Energy Mojito", price: 180 },
-      ],
-    },
-    {
-      title: "CHAI",
-      items: [
-        { name: "Indian masala chai", price: 140 },
+        { name: "CHOCOLATE SHAKE", price: 229 },
+        { name: "BLACKCURRANT SHAKE", price: 239 },
+        { name: "STRAWBERRY SHAKE", price: 239 },
+        { name: "BUTTERSCOTCH SHAKE", price: 239 },
+        { name: "OREO SHAKE", price: 249 },
+        { name: "KITKAT SHAKE", price: 249 },
+        { name: "NUTELLA SHAKE", price: 259 },
+        { name: "BELGIUM (CRUNCHY) SHAKE", price: 259 },
+        { name: "RED VELVET SHAKE", price: 259 },
+        { name: "BROWNIE SHAKE", price: 269 },
+        { name: "BLUEBERRY SHAKE", price: 269 },
+        { name: "LOTUS BISCOFF SHAKE", price: 279 },
+        { name: "ROCHER SHAKE", price: 289 },
       ],
     },
   ],
   Food: [
     {
-      title: "Starters",
-      items: [
-        { name: "Onion rings", price: 210 },
-        { name: "Crispy veg volvo", price: 290 },
-        { name: "Mexican toastados", price: 280 },
-        { name: "Spinach cheese balls", price: 320 },
-        { name: "Crispy veg.", price: 300 },
-        { name: "Honey chilli potato", price: 290 },
-        { name: "Manchurian dry", price: 280 },
-        { name: "Paneer chilly dry", price: 330 },
-        { name: "Cheese balls", price: 272 },
-        { name: "Mushroom aglio olio", price: 300 },
-        { name: "Spicy cigar", price: 290 },
-        { name: "Veg spring roll", price: 290 },
-        { name: "Lahori paneer tikka", price: 420 },
-        { name: "Mushroom platter", price: 420 },
-        { name: "Tandoori platter", price: 480 },
-        { name: "Veg hariyali kabab", price: 300 },
-        { name: "Tawa grill paneer", price: 410 },
-        { name: "Tandoori soya chaap", price: 390 },
-        { name: "Tandoori aloo", price: 310 },
-        { name: "Mushroom dumpling", price: 490 },
-        { name: "Mushroom chilly dry", price: 450 },
-      ],
-    },
-    {
-      title: "Fries",
-      items: [
-        { name: "Salted Fries", price: 160 },
-        { name: "Pizza Fries", price: 170 },
-        { name: "Peri Peri Fries", price: 180 },
-        { name: "Schezwan Fries", price: 190 },
-        { name: "Italian Fries", price: 190 },
-        { name: "Cheesy Fries", price: 200 },
-        { name: "Baby Corn Fries", price: 210 },
-        { name: "Cottage Cheese Finger", price: 220 },
-      ],
-    },
-    {
-      title: "Soup",
-      items: [
-        { name: "Thai spicy soup", price: 200 },
-        { name: "Cheese corn tomato soup", price: 180 },
-        { name: "Manchow soup", price: 200 },
-        { name: "Hot & sour soup", price: 190 },
-        { name: "Minestrone soup", price: 180 },
-        { name: "Lemon coriander soup", price: 170 },
-        { name: "Mexican soup", price: 200 },
-        { name: "Tomato basil soup", price: 180 },
-        { name: "Broccoli almond soup", price: 210 },
-      ],
-    },
-    {
-      title: "Toast",
-      items: [
-        { name: "Cheese Chilli Toast", price: 220 },
-        { name: "Cheese Brushetta", price: 220 },
-        { name: "Cheese Garlic Bread", price: 230 },
-        { name: "Mexican Toast", price: 240 },
-        { name: "Avocado Toast", price: 280 },
-        { name: "Tomato Salad Brushetta", price: 290 },
-      ],
-    },
-    {
-      title: "Frankie",
-      items: [
-        { name: "Veg Frankie", price: 170 },
-        { name: "Tandoori Paneer Frankie", price: 190 },
-        { name: "Schezwan Frankie", price: 220 },
-        { name: "Cheese Corn Delight Frankie", price: 220 },
-      ],
-    },
-    {
-      title: "Sandwich",
-      items: [
-        { name: "Cheese Chilli Sandwich", price: 180 },
-        { name: "Cheese Chilli Corn Sandwich", price: 190 },
-        { name: "Coleslaw Sandwich", price: 190 },
-        { name: "Peri Peri Paneer Sandwich", price: 230 },
-        { name: "Veg. Club Sandwich", price: 230 },
-        { name: "Tandoori Paneer Sandwich", price: 240 },
-        { name: "Phlox Special Sandwich", price: 250 },
-        { name: "Avocado Sandwich", price: 290 },
-      ],
-    },
-    {
-      title: "Panini",
-      items: [
-        { name: "Roasted Red Bell Pepper Panini", price: 230 },
-        { name: "Spicy Paneer Panini", price: 250 },
-        { name: "Mexican Panini", price: 260 },
-        { name: "Phlox Special Panini", price: 280 },
-      ],
-    },
-    {
-      title: "Nachos & Tacos",
-      items: [
-        { name: "Cheesy Nachos", price: 200 },
-        { name: "Ved. Supreme Nachos", price: 220 },
-        { name: "Mexican Tacos", price: 230 },
-      ],
-    },
-    {
-      title: "Noodles",
-      items: [
-        { name: "Hakka Noodles", price: 230 },
-        { name: "Chilli Garlic Noodles", price: 250 },
-        { name: "Schezwan Mushroom Noodles", price: 260 },
-        { name: "Pad Thai Noodles", price: 290 },
-      ],
-    },
-    {
-      title: "Quesadilla",
-      items: [
-        { name: "Bong & Cheese Quesadilla", price: 260 },
-        { name: "Mushroom & Cheese Quesadilla", price: 280 },
-      ],
-    },
-    {
-      title: "Pasta",
-      items: [
-        { name: "Arrabiata Pasta", price: 290 },
-        { name: "Alfredo Pasta", price: 290 },
-        { name: "Cheesy Cream Pasta", price: 300 },
-        { name: "Pink Sauce Pasta", price: 300 },
-        { name: "Aglio Olio Pasta", price: 320 },
-        { name: "Pesto Basil Pasta", price: 320 },
-        { name: "Alio Olio Ravoli Pasta", price: 330 },
-        { name: "Spaghetti Pomodoro Pasta", price: 350 },
-        { name: "Fettuccine Pasta", price: 350 },
-      ],
-    },
-    {
-      title: "Pizza",
-      items: [
-        { name: "Margherita", price: 400 },
-        { name: "Double Cheese Margherita", price: 450 },
-        { name: "Pesto Basil", price: 550 },
-        { name: "Farmhouse", price: 530 },
-        { name: "Bedali burn", price: 550 },
-        { name: "BBQ Paneer", price: 560 },
-        { name: "Paneer Tikka Masala", price: 560 },
-        { name: "English Retreat", price: 590 },
-        { name: "Cheesy - 7", price: 600 },
-        { name: "Cheese Mac Veg.", price: 590 },
-        { name: "Indian zaika", price: 580 },
-        { name: "Mexican Salsa", price: 590 },
-        { name: "Spicy Veg", price: 560 },
-        { name: "Peri Peri Veg.", price: 550 },
-      ],
-    },
-    {
-      title: "Hotpot",
-      items: [
-        { name: "Mexican Hotpot", price: 350 },
-        { name: "Italian Hotpot", price: 360 },
-        { name: "Mexican Rice & Salsa Curry", price: 390 },
-        { name: "Saute Italian Vegetable", price: 390 },
-      ],
-    },
-    {
-      title: "Thai",
-      items: [
-        { name: "Thai Green Curry& Basil Rice", price: 420 },
-        { name: "Thai Red Curry & Basil Rice", price: 420 },
-      ],
-    },
-    {
-      title: "Baked Dish",
-      items: [
-        { name: "Baked Cannelloni", price: 420 },
-        { name: "Baked Macaroni With Pinapple", price: 420 },
-        { name: "Baked Lasagnia", price: 440 },
-        { name: "Baked Macaroni Marinara Sauce", price: 440 },
-      ],
-    },
-    {
-      title: "Rice Bowl",
-      items: [
-        { name: "Mexican Bowl", price: 330 },
-        { name: "Chipotle Bowl", price: 340 },
-        { name: "Chinese Bowl", price: 340 },
-        { name: "Indian Bowl", price: 350 },
-        { name: "Jeera rice", price: 170 },
-        { name: "Veg. fried rice", price: 220 },
-        { name: "Manchurian fried rice", price: 250 },
-        { name: "Schezwan fried rice", price: 260 },
-        { name: "Cheese tawa Pulav", price: 250 },
-        { name: "Crispy paneer pulav", price: 300 },
-        { name: "Hyderabadi dum biryani", price: 350 },
-        { name: "Paneer tikka biryani", price: 380 },
-        { name: "Triple schezwan fried rice", price: 300 },
-        { name: "Veg. tawa pulav", price: 210 },
-      ],
-    },
-    {
-      title: "Rice Platter",
-      items: [
-        { name: "Spinach Lottage Cheese Rice", price: 440 },
-        { name: "Jafrani Broccoli Garlic Rice", price: 480 },
-        { name: "Peri Peri With Burnt Garlic & Onion Rice", price: 490 },
-      ],
-    },
-    {
-      title: "Khichdi",
-      items: [
-        { name: "Dal Khichdi", price: 230 },
-        { name: "Masala Khichdi", price: 250 },
-        { name: "Palak Tadka Khichdi", price: 270 },
-      ],
-    },
-    {
-      title: "Sizzler",
-      items: [
-        { name: "Mexican Sizzler", price: 550 },
-        { name: "Italian Sizzler", price: 550 },
-        { name: "Chinese Sizzler", price: 580 },
-        { name: "Paneer Shashlic Sizzler", price: 580 },
-      ],
-    },
-    {
-      title: "Paratha",
-      items: [
-        { name: "Aloo Paratha", price: 230 },
-        { name: "Cheese Onion Paratha", price: 260 },
-        { name: "Mix Veg. Paratha", price: 250 },
-      ],
-    },
-    {
-      title: "Curries",
-      items: [
-        { name: "Mix veg.", price: 340 },
-        { name: "Veg. Jaipuri", price: 350 },
-        { name: "Veg. kadhai", price: 360 },
-        { name: "Veg. toofani", price: 350 },
-        { name: "Veg. makhanwala", price: 370 },
-        { name: "Veg. deewani handi", price: 390 },
-        { name: "Veg. kofta", price: 450 },
-        { name: "Jeera aloo", price: 280 },
-        { name: "Lasaniya palak", price: 310 },
-        { name: "Dum aloo", price: 320 },
-        { name: "Bhindi masala", price: 300 },
-        { name: "Paneer butter masala", price: 440 },
-        { name: "Paneer cheese butter masala", price: 450 },
-        { name: "Paneer tikka masala", price: 440 },
-        { name: "Paneer angara", price: 430 },
-        { name: "Paneer bhurji", price: 450 },
-        { name: "Paneer kadhai", price: 430 },
-        { name: "Palak paneer", price: 410 },
-        { name: "Cheese butter masala", price: 450 },
-        { name: "Khoya kaju", price: 460 },
-        { name: "Cheese anguri", price: 460 },
-        { name: "Kaju masala", price: 450 },
-        { name: "Malai kofta", price: 420 },
-      ],
-    },
-    {
-      title: "Dal",
-      items: [
-        { name: "Dal fry", price: 200 },
-        { name: "Dal fry tadka", price: 210 },
-        { name: "Dal makhni", price: 230 },
-        { name: "Dal makhni with ghee", price: 250 },
-      ],
-    },
-    {
-      title: "Indian Breads",
-      items: [
-        { name: "Plain tawa roti", price: 25 },
-        { name: "Butter tawa roti", price: 35 },
-        { name: "Tandoori roti", price: 50 },
-        { name: "Butter tandoori roti", price: 70 },
-        { name: "Tawa paratha", price: 80 },
-        { name: "Lachha paratha", price: 110 },
-        { name: "Phudina lachha paratha", price: 120 },
-        { name: "Cheese garlic lachha paratha", price: 150 },
-        { name: "Butter naan", price: 130 },
-        { name: "Cheese naan", price: 150 },
-        { name: "Cheese garlic naan", price: 170 },
-        { name: "Cheese chiily garlic naan", price: 180 },
-        { name: "Chur chur naan", price: 160 },
-      ],
-    },
-    {
-      title: "Kulcha",
-      items: [
-        { name: "Plain kulcha", price: 170 },
-        { name: "Stuff kulcha onion", price: 200 },
-        { name: "Stuff kulcha potato", price: 220 },
-        { name: "Stuff kulcha mix", price: 250 },
-        { name: "Stuff kulcha cheese", price: 250 },
-      ],
-    },
-  ],
-  "Bakery & Desserts": [
-    {
       title: "Croissant",
       items: [
-        { name: "Plain croissant", price: 150 },
-        { name: "Butter croissant", price: 180 },
-        { name: "Cheese croissant", price: 200 },
-        { name: "Nutella croissant", price: 220 },
-        { name: "Chocolate croissant", price: 220 },
-      ],
-    },
-    {
-      title: "Cheesecake",
-      items: [
-        { name: "Nutella", price: 270 },
-        { name: "Biscoff", price: 270 },
-        { name: "Blueberry", price: 270 },
-        { name: "Red velvet", price: 270 },
+        { name: "PLAIN CROISSANT", price: 149 },
+        { name: "BUTTER CROISSANT", price: 169 },
+        { name: "CHEESE CROISSANT", price: 199 },
+        { name: "NUTELLA CROISSANT", price: 229 },
+        { name: "CHOCOLATE CROISSANT", price: 239 },
       ],
     },
     {
       title: "Bagel",
       items: [
-        { name: "Cheese cream spread", price: 160 },
-        { name: "Red chilli flake cheese spread", price: 170 },
-        { name: "Spicy garlic cheese spread", price: 190 },
-        { name: "Oregano pickle cheese spread", price: 200 },
-        { name: "Jalapeno & cream cheese", price: 210 },
-        { name: "Pesto caprese", price: 230 },
+        { name: "CHEESE CREAM SPREAD", price: 169 },
+        { name: "RED CHILLI FLAKE CHEESE SPREAD", price: 179 },
+        { name: "SPICY GARLIC CHEESE SPREAD", price: 199 },
+        { name: "OREGANO PICKLE CHEESE SPREAD", price: 219 },
+        { name: "JALAPENO & CREAM CHEESE", price: 229 },
+        { name: "PESTO CAPRESE", price: 239 },
+      ],
+    },
+    {
+      title: "Pizza",
+      items: [
+        { name: "MARGHERITA", price: 519 },
+        { name: "DOUBLE CHEESE MARGHERITA", price: 549 },
+        { name: "PESTO BASIL", price: 599 },
+        { name: "FARMHOUSE", price: 599 },
+        { name: "BEDALI BURN", price: 599 },
+        { name: "BBQ PANEER", price: 629 },
+        { name: "PANEER TIKKA MASALA", price: 639 },
+        { name: "ENGLISH RETREAT", price: 649 },
+        { name: "CHEESY - 7", price: 679 },
+        { name: "SPICY VEG.", price: 679 },
+        { name: "PERI PERI VEG", price: 679 },
+        { name: "CHEESE MAC VEG.", price: 689 },
+        { name: "MEXICAN SALSA", price: 689 },
+        { name: "INDIAN ZAIKA", price: 699 },
+      ],
+    },
+    {
+      title: "Burger",
+      items: [
+        { name: "VEG. ALOO TIKKI BURGER", price: 159 },
+        { name: "CHEESE BURGER", price: 179 },
+        { name: "SCHEZWAN BURGER", price: 179 },
+        { name: "PANEER MAHARAJA BURGER DOUBLE", price: 219 },
+        { name: "CHEESE MAKHANI", price: 239 },
+      ],
+    },
+    {
+      title: "Pasta",
+      items: [
+        { name: "ARRABIATA PASTA", price: 299 },
+        { name: "ALFREDO PASTA", price: 309 },
+        { name: "CHEESY CREAM PASTA", price: 329 },
+        { name: "PINK SAUCE PASTA", price: 329 },
+        { name: "AGLIO OLIO RAVIOLI PASTA", price: 339 },
+        { name: "PESTO BASIL PASTA", price: 339 },
+        { name: "SPAGHETTI POMODORO PASTA", price: 359 },
+        { name: "FETTUCCINE PASTA", price: 359 },
+      ],
+    },
+    {
+      title: "Fries",
+      items: [
+        { name: "SALTED FRIES", price: 159 },
+        { name: "PIZZA FRIES", price: 179 },
+        { name: "PERI PERI FRIES", price: 189 },
+        { name: "SCHEZWAN FRIES", price: 199 },
+        { name: "ITALIAN FRIES", price: 199 },
+        { name: "CHEESY FRIES", price: 219 },
+        { name: "BABY CORN FRIES", price: 219 },
+        { name: "COTTAGE CHEESE FINGERS", price: 229 },
       ],
     },
     {
       title: "Stuffed Garlic Bread",
       items: [
-        { name: "Classic", price: 210 },
-        { name: "Cheesy", price: 250 },
-        { name: "Paneer Tikka", price: 280 },
+        { name: "CLASSIC", price: 219 },
+        { name: "CHEESY", price: 259 },
+        { name: "PANEER TIKKA", price: 289 },
       ],
     },
     {
-      title: "Dessert",
+      title: "Toast",
       items: [
-        { name: "Vanilla Ice Cream", price: 80 },
-        { name: "Chocolate Ice Cream", price: 90 },
-        { name: "Strawberry Ice Cream", price: 100 },
-        { name: "Butter Scotch Ice Cream", price: 110 },
-        { name: "American Nuts", price: 120 },
-        { name: "Hot Chocolate Brownie", price: 220 },
-        { name: "Sizzling Brownie & Vanila", price: 260 },
-        { name: "Gulab Jamun", price: 160 },
-        { name: "Halawa", price: 220 },
+        { name: "CHEESE CHILLI TOAST", price: 229 },
+        { name: "CHEESE BRUSCHETTA", price: 229 },
+        { name: "CHEESE GARLIC BREAD", price: 239 },
+        { name: "MEXICAN TOAST", price: 249 },
+        { name: "AVOCADO TOAST", price: 289 },
+        { name: "TOMATO SALAD BRUSCHETTA", price: 299 },
       ],
     },
-  ],
-  "Sides & Add-ons": [
+    {
+      title: "Frankie",
+      items: [
+        { name: "VEG FRANKIE", price: 179 },
+        { name: "TANDOORI PANEER FRANKIE", price: 199 },
+        { name: "SCHEZWAN FRANKIE", price: 219 },
+        { name: "CHEESE CORN DELIGHT FRANKIE", price: 229 },
+      ],
+    },
+    {
+      title: "Quesadilla",
+      items: [
+        { name: "BEAN & CHEESE QUESADILLA", price: 259 },
+        { name: "MUSHROOM & CHEESE QUESADILLA", price: 289 },
+      ],
+    },
+    {
+      title: "Thai",
+      items: [
+        { name: "THAI GREEN CURRY & BASIL RICE", price: 259 },
+        { name: "THAI RED CURRY & BASIL RICE", price: 279 },
+      ],
+    },
+    {
+      title: "Hotpot",
+      items: [
+        { name: "MEXICAN HOTPOT", price: 359 },
+        { name: "ITALIAN HOTPOT", price: 369 },
+        { name: "MEXICAN RICE & SALSA CURRY", price: 399 },
+        { name: "SAUTE ITALIAN VEGETABLE", price: 399 },
+      ],
+    },
+    {
+      title: "Noodles",
+      items: [
+        { name: "HAKKA NOODLES", price: 239 },
+        { name: "CHILLI GARLIC NOODLES", price: 259 },
+        { name: "SCHEZWAN MUSHROOM NOODLES", price: 269 },
+        { name: "PAD THAI NOODLES", price: 299 },
+      ],
+    },
+    {
+      title: "Khichdi",
+      items: [
+        { name: "DAL KHICHDI", price: 229 },
+        { name: "MASALA KHICHDI", price: 249 },
+        { name: "PALAK TADKA KHICHDI", price: 269 },
+      ],
+    },
+    {
+      title: "Paratha",
+      items: [
+        { name: "ALOO PARATHA", price: 229 },
+        { name: "MIX VEG. PARATHA", price: 249 },
+      ],
+    },
+    {
+      title: "Sandwich",
+      items: [
+        { name: "CHEESE CHILLI SANDWICH", price: 199 },
+        { name: "CHEESE CHILLI CORN SANDWICH", price: 219 },
+        { name: "COLESLAW SANDWICH", price: 229 },
+        { name: "PERI PERI PANEER SANDWICH", price: 249 },
+        { name: "VEG. CLUB SANDWICH", price: 249 },
+        { name: "TANDOORI PANEER SANDWICH", price: 259 },
+        { name: "PHLOX SPECIAL SANDWICH", price: 279 },
+        { name: "AVOCADO SANDWICH", price: 299 },
+      ],
+    },
+    {
+      title: "Nachos & Tacos",
+      items: [
+        { name: "CHEESY NACHOS", price: 229 },
+        { name: "VEG. SUPREME NACHOS", price: 249 },
+        { name: "MEXICAN TACOS", price: 269 },
+      ],
+    },
+    {
+      title: "Baked Dish",
+      items: [
+        { name: "BAKED CANNELLONI", price: 429 },
+        { name: "BAKED MACARONI WITH PINEAPPLE", price: 439 },
+        { name: "BAKED LASAGNA", price: 449 },
+        { name: "BAKED MACARONI MARINARA SAUCE", price: 459 },
+      ],
+    },
+    {
+      title: "Panini",
+      items: [
+        { name: "ROASTED RED BELL PEPPER PANINI", price: 239 },
+        { name: "SPICY PANEER PANINI", price: 259 },
+        { name: "MEXICAN PANINI", price: 269 },
+        { name: "PHLOX SPECIAL PANINI", price: 289 },
+      ],
+    },
+    {
+      title: "Sizzler",
+      items: [
+        { name: "MEXICAN SIZZLER", price: 619 },
+        { name: "ITALIAN SIZZLER", price: 629 },
+        { name: "CHINESE SIZZLER", price: 639 },
+        { name: "PANEER SHASHLIC SIZZLER", price: 679 },
+      ],
+    },
+    {
+      title: "Rice Platter",
+      items: [
+        { name: "SPINACH COTTAGE CHEESE RICE", price: 449 },
+        { name: "JAFRANI BROCCOLI GARLIC RICE", price: 489 },
+        { name: "PERI PERI WITH BURNT GARLIC & ONION", price: 499 },
+      ],
+    },
+    {
+      title: "Rice Bowl",
+      items: [
+        { name: "MEXICAN BOWL", price: 319 },
+        { name: "CHIPOTLE BOWL", price: 339 },
+        { name: "CHINESE BOWL", price: 339 },
+        { name: "INDIAN BOWL", price: 359 },
+      ],
+    },
+    {
+      title: "Soup",
+      items: [
+        { name: "LEMON CORIANDER SOUP", price: 179 },
+        { name: "CHEESE CORN TOMATO SOUP", price: 179 },
+        { name: "HOT&SOUR SOUP", price: 189 },
+        { name: "MINESTRONE SOUP", price: 189 },
+        { name: "TOMATO BASIL SOUP", price: 189 },
+        { name: "THAI SPICY SOUP", price: 199 },
+        { name: "MANCHOW SOUP", price: 199 },
+        { name: "MEXICAN SOUP", price: 199 },
+        { name: "BROCCOLI ALMOND SOUP", price: 219 },
+      ],
+    },
+    {
+      title: "Starter",
+      items: [
+        { name: "CRISPY VEG VOLVO", price: 209 },
+        { name: "SPINACH CHEESE BALLS", price: 209 },
+        { name: "ONION RINGS", price: 219 },
+        { name: "CRISPY VEG.", price: 219 },
+        { name: "HONEY CHILLI POTATO", price: 229 },
+        { name: "CHEESE BALLS", price: 239 },
+        { name: "MANCHURIAN DRY", price: 249 },
+        { name: "MEXICAN TOSTADOS", price: 259 },
+        { name: "PANEER CHILLI DRY", price: 279 },
+        { name: "VEG SPRING ROLL", price: 289 },
+        { name: "MUSHROOM AGLIO OLIO", price: 319 },
+        { name: "SPICY CIGAR", price: 319 },
+        { name: "HUMMUS AND PITA BREAD", price: 319 },
+        { name: "VEG HARIYALI KABAB", price: 329 },
+        { name: "TANDOORI ALOO", price: 339 },
+        { name: "TANDOORI SOYA CHAAP", price: 399 },
+        { name: "TAWA GRILL PANEER", price: 419 },
+        { name: "MEZZE PLATTER", price: 429 },
+        { name: "LAHORI PANEER TIKKA", price: 429 },
+        { name: "MUSHROOM PLATTER", price: 429 },
+        { name: "MUSHROOM CHILLY DRY", price: 469 },
+        { name: "TANDOORI PLATTER", price: 479 },
+        { name: "MUSHROOM DUMPLING", price: 479 },
+      ],
+    },
     {
       title: "Sides",
       items: [
-        { name: "Roasted papad", price: 30 },
-        { name: "Fried papad", price: 30 },
-        { name: "Roasted masala papad", price: 70 },
-        { name: "Fried masala papad", price: 70 },
-        { name: "Cheese masala papad", price: 90 },
+        { name: "ROASTED PAPAD", price: 39 },
+        { name: "FRIED PAPAD", price: 39 },
+        { name: "ROASTED MASALA PAPAD", price: 79 },
+        { name: "FRIED MASALA PAPAD", price: 79 },
+        { name: "CHEESE MASALA PAPAD", price: 89 },
       ],
     },
     {
-      title: "Addons",
+      title: "Chaat",
       items: [
-        { name: "Coffee Dust", price: 50 },
-        { name: "Ice Cream Scoop", price: 50 },
-        { name: "Choco Syrup", price: 40 },
-        { name: "Choco Chips", price: 40 },
-        { name: "Whip Cream", price: 50 },
+        { name: "CHANA CHAT", price: 89 },
+        { name: "PEANUT CHAT", price: 99 },
+        { name: "PAPDI CHAT", price: 119 },
+        { name: "ALOO TIKKI CHAT", price: 129 },
+        { name: "CHOLE TIKKI CHAT", price: 139 },
+      ],
+    },
+    {
+      title: "Curries",
+      items: [
+        { name: "JEERA ALOO", price: 279 },
+        { name: "MIX VEG.", price: 299 },
+        { name: "BHINDI MASALA", price: 299 },
+        { name: "VEG. JAIPURI", price: 319 },
+        { name: "LASANIYA PALAK", price: 319 },
+        { name: "VEG. KADHAI", price: 329 },
+        { name: "DUM ALOO", price: 329 },
+        { name: "VEG. TOOFANI", price: 349 },
+        { name: "VEG. MAKHANWALA", price: 379 },
+        { name: "VEG. DEEWANI HANDI", price: 389 },
+        { name: "PALAK PANEER", price: 419 },
+        { name: "MALAI KOFTA", price: 419 },
+        { name: "PANEER ANGARA", price: 439 },
+        { name: "PANEER KADHAI", price: 439 },
+        { name: "PANEER BUTTER MASALA", price: 449 },
+        { name: "PANEER TIKKA MASALA", price: 449 },
+        { name: "VEG. KOFTA", price: 459 },
+        { name: "PANEER CHEESE BUTTER MASALA", price: 459 },
+        { name: "PANEER BHURJI", price: 459 },
+        { name: "CHEESE BUTTER MASALA", price: 469 },
+        { name: "KHOYA KAJU", price: 479 },
+        { name: "CHEESE ANGURI", price: 479 },
+        { name: "KAJU MASALA", price: 489 },
+      ],
+    },
+    {
+      title: "Indian Breads",
+      items: [
+        { name: "PLAIN TAWA ROTI", price: 30 },
+        { name: "BUTTER TAWA ROTI", price: 40 },
+        { name: "TANDOORI ROTI", price: 60 },
+        { name: "BUTTER TANDOORI ROTI", price: 75 },
+        { name: "TAWA PARATHA", price: 90 },
+        { name: "LACHHA PARATHA", price: 110 },
+        { name: "BUTTER NAAN", price: 130 },
+        { name: "PHUDINA LACHHA PARATHA", price: 130 },
+        { name: "CHEESE GARLIC LACHHA PARATHA", price: 150 },
+        { name: "CHEESE NAAN", price: 150 },
+        { name: "PLAIN KULCHA", price: 159 },
+        { name: "CHUR CHUR NAAN", price: 160 },
+        { name: "CHEESE GARLIC NAAN", price: 170 },
+        { name: "CHEESE CHILLY GARLIC NAAN", price: 180 },
+        { name: "STUFF KULCHA ONION", price: 209 },
+        { name: "STUFF KULCHA POTATO", price: 219 },
+        { name: "STUFF KULCHA MIX", price: 249 },
+        { name: "STUFF KULCHA CHEESE", price: 259 },
+      ],
+    },
+    {
+      title: "Dal",
+      items: [
+        { name: "DAL FRY", price: 189 },
+        { name: "DAL FRY TADKA", price: 219 },
+        { name: "DAL MAKHNI", price: 249 },
+        { name: "DAL MAKHNI WITH GHEE", price: 259 },
+      ],
+    },
+    {
+      title: "Rice",
+      items: [
+        { name: "JEERA RICE", price: 179 },
+        { name: "VEG. TAWA PULAV", price: 229 },
+        { name: "VEG. FRIED RICE", price: 229 },
+        { name: "MANCHURIAN FRIED RICE", price: 269 },
+        { name: "SCHEZWAN FRIED RICE", price: 279 },
+        { name: "CHEESE TAWA PULAV", price: 289 },
+        { name: "CRISPY PANEER PULAV", price: 319 },
+        { name: "TRIPLE SCHEZWAN FRIED RICE", price: 349 },
+        { name: "HYDERABADI DUM BIRYANI", price: 359 },
+        { name: "PANEER TIKKA BIRYANI", price: 379 },
       ],
     },
   ],
+  "Desserts & Others": [
+    {
+      title: "Desserts",
+      items: [
+        { name: "VANILLA ICE CREAM", price: 89 },
+        { name: "CHOCOLATE ICE CREAM", price: 99 },
+        { name: "STRAWBERRY ICE CREAM", price: 109 },
+        { name: "BUTTERSCOTCH ICE CREAM", price: 119 },
+        { name: "AMERICAN NUTS", price: 129 },
+        { name: "GULAB JAMUN", price: 169 },
+        { name: "HALAWA", price: 229 },
+        { name: "HOT CHOCOLATE BROWNIE", price: 239 },
+        { name: "SIZZLING BROWNIE & VANILLA", price: 289 },
+      ],
+    },
+    {
+      title: "Cheese Cake",
+      items: [
+        { name: "NUTELLA CHEESECAKE", price: 279 },
+        { name: "BISCOFF CHEESECAKE", price: 279 },
+        { name: "BLUEBERRY CHEESECAKE", price: 279 },
+        { name: "RED VELVET CHEESECAKE", price: 279 },
+      ],
+    },
+    {
+      title: "Others",
+      items: [
+        { name: "WATER BOTTLE", price: 30 },
+        { name: "COLD DRINK", price: 70 },
+        { name: "BUTTER MILK", price: 70 },
+        { name: "MASALA BUTTER MILK", price: 90 },
+        { name: "REDBULL ON THE ROCKS", price: 190 },
+      ],
+    },
+  ],
+};
+
+// Category icons
+const categoryIcons = {
+  Beverages: Coffee,
+  Food: Utensils,
+  "Desserts & Others": Cake,
 };
 
 const Menu = () => {
@@ -514,57 +541,100 @@ const Menu = () => {
   const categories = useMemo(() => Object.keys(allItems) as CategoryKey[], []);
 
   return (
-    <section id="menu" className="container py-20">
-      <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryKey)}>
-        <div className="flex items-end justify-between flex-wrap gap-6">
-          <div className="max-w-xl">
-            <h2 className="font-playfair text-3xl sm:text-4xl">Our Menu</h2>
-            <p className="text-muted-foreground mt-2">
-              Handpicked beverages, hearty mains, and sweet finishes. No photos—just pure taste.
+    <section id="menu" className="relative py-24 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/10" />
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-gold/5 to-transparent blur-3xl" />
+      
+      <div className="container relative">
+        <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryKey)}>
+          {/* Header Section */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Sparkles className="w-6 h-6 text-gold animate-pulse" />
+              <h2 className="font-playfair text-5xl sm:text-6xl bg-gradient-to-r from-foreground via-gold to-foreground bg-clip-text text-transparent">
+                Our Menu
+              </h2>
+              <Sparkles className="w-6 h-6 text-gold animate-pulse" />
+            </div>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Discover our carefully curated selection of beverages, authentic flavors, and delightful desserts
             </p>
           </div>
-          <TabsList className="overflow-auto">
-            {categories.map((c) => (
-              <TabsTrigger key={c} value={c}>
-                {c}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </div>
 
-        {categories.map((c) => (
-          <TabsContent key={c} value={c} className={category === c ? "block" : "hidden"}>
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {allItems[c].map((section) => (
-                <Card
-                  key={section.title}
-                  className="border-secondary/40 bg-secondary/30 backdrop-blur-sm hover:bg-secondary/50 transition-colors"
-                >
-                  <CardHeader>
-                    <CardTitle className="font-medium flex items-center gap-3">
-                      <span className="inline-block h-2 w-2 rounded-full bg-[hsl(var(--gold))]" />
-                      {section.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul>
-                      {section.items.map((item) => (
-                        <li key={item.name} className="flex items-baseline gap-3 py-2">
-                          <span className="text-sm sm:text-base flex-shrink-0">{item.name}</span>
-                          <span className="flex-1 border-b border-dashed border-border/40" />
-                          <span className="font-playfair text-base sm:text-lg text-[hsl(var(--gold))]">
-                            ₹{item.price}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+          {/* Category Tabs */}
+          <div className="flex justify-center mb-16">
+            <TabsList className="grid grid-cols-3 bg-secondary/30 backdrop-blur-sm border border-border/40 p-1 rounded-2xl">
+              {categories.map((c) => {
+                const Icon = categoryIcons[c];
+                return (
+                  <TabsTrigger 
+                    key={c} 
+                    value={c}
+                    className="flex items-center gap-2 px-8 py-4 text-sm font-medium rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-lg transition-all duration-300"
+                  >
+                    <Icon className="w-4 h-4" />
+                    {c}
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+          </div>
+
+          {/* Menu Content */}
+          {categories.map((c) => (
+            <TabsContent key={c} value={c} className="animate-fade-in">
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {allItems[c].map((section, index) => (
+                  <Card
+                    key={section.title}
+                    className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm hover:from-card/70 hover:to-card/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/10"
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                    }}
+                  >
+                    {/* Card background gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <CardHeader className="relative pb-4">
+                      <CardTitle className="flex items-center gap-3 text-xl font-playfair">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                          <div className="w-1 h-1 rounded-full bg-gold/60" />
+                        </div>
+                        <span className="bg-gradient-to-r from-foreground to-gold bg-clip-text text-transparent">
+                          {section.title}
+                        </span>
+                      </CardTitle>
+                    </CardHeader>
+                    
+                    <CardContent className="relative">
+                      <div className="space-y-3">
+                        {section.items.map((item) => (
+                          <div 
+                            key={item.name} 
+                            className="flex items-baseline justify-between gap-4 py-2 group/item hover:bg-secondary/20 rounded-lg px-2 -mx-2 transition-colors duration-200"
+                          >
+                            <span className="text-sm font-medium text-foreground/90 group-hover/item:text-foreground transition-colors">
+                              {item.name}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <div className="flex-1 border-b border-dashed border-border/40 min-w-[20px]" />
+                              <span className="font-playfair text-lg font-semibold text-gold whitespace-nowrap">
+                                ₹{item.price}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
     </section>
   );
 };
