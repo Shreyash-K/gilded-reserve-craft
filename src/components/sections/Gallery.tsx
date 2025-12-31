@@ -8,7 +8,10 @@ const ambienceImages = [
   "/lovable-uploads/52aebc63-3732-4411-a02e-1c7c0efffbfb.png",
   "/lovable-uploads/390d96c3-60a6-478f-8d1e-94543da4c89f.png",
   "/lovable-uploads/1aebeffa-619e-43dd-a1fd-1b6c76fd9cc8.png",
-  "/lovable-uploads/49854a41-f58f-44a2-9a96-95681b79cdc8.png"
+  "/lovable-uploads/49854a41-f58f-44a2-9a96-95681b79cdc8.png",
+  "/lovable-uploads/ambience-outdoor.png",
+  "/lovable-uploads/ambience-indoor.png",
+  "/lovable-uploads/ambience-night.png"
 ];
 
 const foodDrinkImages = [
