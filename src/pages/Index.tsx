@@ -1,8 +1,6 @@
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
 import Menu from "@/components/sections/Menu";
 import Offers from "@/components/sections/Offers";
-import Reservation from "@/components/sections/Reservation";
 import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
@@ -40,10 +38,8 @@ const Index = () => {
     <>
       <Hero />
       <main>
-        <About />
         <Menu />
         <Offers />
-        <Reservation />
         <Gallery />
         <Testimonials />
         <Contact />
