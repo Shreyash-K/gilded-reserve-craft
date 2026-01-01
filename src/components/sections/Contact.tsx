@@ -1,16 +1,24 @@
+import { Instagram, MapPin, Clock, Sparkles } from "lucide-react";
+
 const Contact = () => {
   return (
     <section id="contact" className="container py-20">
       <h2 className="font-playfair text-3xl sm:text-4xl">Contact & Hours</h2>
       <div className="mt-8 grid md:grid-cols-3 gap-8">
         <div className="space-y-3">
-          <h3 className="font-medium mb-3 text-gold">Our Location</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <MapPin className="w-5 h-5 text-primary" />
+            <h3 className="font-medium text-primary">Our Location</h3>
+          </div>
           <p className="text-foreground font-medium">Phlox Restro Cafe</p>
           <p className="text-muted-foreground">Armedia Ln, Opp. Sterling Cancer Hospital</p>
           <p className="text-muted-foreground">Bodakdev, Ahmedabad, Gujarat</p>
         </div>
         <div>
-          <h3 className="font-medium mb-3 text-gold">Opening Hours</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <Clock className="w-5 h-5 text-primary" />
+            <h3 className="font-medium text-primary">Opening Hours</h3>
+          </div>
           <div className="text-muted-foreground space-y-2">
             <p className="font-medium">Monday – Sunday</p>
             <p>10:00 AM – 05:00 AM</p>
@@ -27,22 +35,52 @@ const Contact = () => {
         </div>
       </div>
       
-      {/* Instagram Section */}
-      <div className="mt-16 pt-8 border-t border-border">
-        <div className="text-center">
-          <h3 className="font-playfair text-2xl mb-4 text-gold">Visit Our Instagram</h3>
-          <p className="text-muted-foreground mb-6">Share your PHLOX moments with us and stay updated with our latest offerings!</p>
-          <a 
-            href="https://www.instagram.com/phlox.restrocafe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full hover:scale-105 transition-all duration-200 font-medium"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-            @phlox.restrocafe
-          </a>
+      {/* Instagram Section - Enhanced */}
+      <div className="mt-16 pt-12 border-t border-border">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-secondary/50 via-background to-secondary/30 p-8 md:p-12">
+          {/* Background decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-pink-500/10 to-purple-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-2xl" />
+          
+          {/* Floating sparkles */}
+          <div className="absolute top-8 left-1/4 animate-pulse">
+            <Sparkles className="w-4 h-4 text-primary/40" />
+          </div>
+          <div className="absolute bottom-12 right-1/3 animate-pulse delay-300">
+            <Sparkles className="w-3 h-3 text-pink-400/40" />
+          </div>
+          
+          <div className="relative text-center">
+            {/* Instagram icon with glow */}
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-500 via-purple-500 to-orange-400 mb-6 shadow-lg shadow-pink-500/30 animate-[float_6s_ease-in-out_infinite]">
+              <Instagram className="w-10 h-10 text-white" />
+            </div>
+            
+            <h3 className="font-playfair text-3xl md:text-4xl mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+              Follow Our Journey
+            </h3>
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-lg">
+              Dive into the PHLOX experience! Catch behind-the-scenes moments, mouth-watering dishes, and exciting events.
+            </p>
+            
+            <a 
+              href="https://www.instagram.com/phlox.restrocafe?igsh=MXRheDZmdDN2ano1OA=="
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-400 text-white px-10 py-4 rounded-full hover:scale-105 hover:shadow-xl hover:shadow-pink-500/30 transition-all duration-300 font-semibold text-lg"
+            >
+              <Instagram className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+              <span>@phlox.restrocafe</span>
+              <div className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
+            </a>
+            
+            {/* Decorative line */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/40" />
+              <span className="text-sm text-muted-foreground uppercase tracking-widest">Stay Connected</span>
+              <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/40" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
