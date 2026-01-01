@@ -8,7 +8,7 @@ const SiteFooter = () => {
         </div>
         <nav className="grid gap-2">
           <a href="#menu" className="story-link">Menu</a>
-          <a href="#offers" className="story-link">Offers</a>
+          <a href="#events" className="story-link">Events</a>
         </nav>
         <nav className="grid gap-2">
           <a href="#gallery" className="story-link">Gallery</a>

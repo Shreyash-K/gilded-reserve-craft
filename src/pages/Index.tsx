@@ -1,6 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import Menu from "@/components/sections/Menu";
-import Offers from "@/components/sections/Offers";
+import EventHighlights from "@/components/sections/EventHighlights";
 import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
@@ -39,7 +39,7 @@ const Index = () => {
       <Hero />
       <main>
         <Menu />
-        <Offers />
+        <EventHighlights />
         <Gallery />
         <Testimonials />
         <Contact />
