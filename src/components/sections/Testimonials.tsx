@@ -207,12 +207,11 @@ const Testimonials = () => {
         </div>
 
         {/* Stats row */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="mt-16 grid grid-cols-3 gap-8">
           {[
             { value: "4.9", label: "Average Rating" },
             { value: "2000+", label: "Happy Guests" },
             { value: "100+", label: "Menu Items" },
-            { value: "5+", label: "Years of Service" },
           ].map((stat, i) => (
             <div key={i} className="text-center group">
               <div className="text-3xl md:text-4xl font-playfair text-primary group-hover:scale-110 transition-transform duration-300">
