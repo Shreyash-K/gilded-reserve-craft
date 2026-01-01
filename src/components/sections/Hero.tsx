@@ -121,11 +121,11 @@ const Hero = () => {
               size="xl" 
               className="group relative rounded-full px-10 py-4 bg-transparent border-2 border-primary/60 text-primary hover:border-primary hover:bg-primary/10 transition-all duration-300 overflow-hidden"
               onClick={() => {
-                const el = document.getElementById('reserve');
+                const el = document.getElementById('events');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <span className="relative z-10">Reserve a Table</span>
+              <span className="relative z-10">Explore Events</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </Button>
             <Button 
